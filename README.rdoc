@@ -1,6 +1,16 @@
 = text_to_epub
 
-Description goes here.
+Generates a template directory that you can use to build a custom epub file. 
+
+Usage:
+new_book /path/to/new/book
+(if the directory does not exist, it will be created)
+
+Go to the new directory and modify the file config.yml
+
+Run ./bin/gen_epub.rb from within the new directory.
+
+Text files will be html-ized using textile (via the RedCloth gem). Check the templates directory for files you may want to customize (such as stylesheet.css or the .liquid html files).
 
 == Contributing to text_to_epub
  

@@ -1,3 +1,9 @@
+# default temp directory for epub generator
+epub
+
+# config file for books (copy from config_example.yml)
+config.yml
+
 # rcov generated
 coverage
 
@@ -22,21 +28,3 @@ pkg
 #
 # After doing this, these files will be ignored in all your git projects,
 # saving you from having to 'pollute' every project you touch with them
-#
-# Not sure what to needs to be ignored for particular editors/OSes? Here's some ideas to get you started. (Remember, remove the leading # of the line)
-#
-# For MacOS:
-#
-#.DS_Store
-#
-# For TextMate
-#*.tmproj
-#tmtags
-#
-# For emacs:
-#*~
-#\#*
-#.\#*
-#
-# For vim:
-#*.swp

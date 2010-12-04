@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" 
+            xmlns:dc="http://purl.org/dc/elements/1.1/" 
+            unique-identifier="bookid" version="2.0">
+  <metadata>
+    <dc:title>{{ book.title }}</dc:title>
+    <dc:creator>{{ book.creator }}</dc:creator>
+    <dc:identifier id="bookid">{{ book.book_id }}</dc:identifier>
+    <dc:language>en-US</dc:language>
+    <dc:date>{{ book.pub_date }}</dc:date>
+    <dc:rights>{{ book.cc_url }}</dc:rights>
+    <meta name="cover" content="cover-image" /> 
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+    <item id="cover" href="title.html" media-type="application/xhtml+xml"/>
+    <item id="end_of_book" href="end_of_book.html" media-type="application/xhtml+xml"/>
+    {% for chapter in book.chapters %}
+      <item id="chapter_{{chapter.chapter_id}}" href="{{chapter.file_name}}" media-type="application/xhtml+xml"/>
+    {% endfor %}
+    {% for image_file in image_files %}
+      <item id="image_{{image_file}}" href="images/{{image_file}}" media-type="image/jpeg"/>
+    {% endfor %}
+    {% for css_file in css_files %}
+    <item id="css_{{css_file}}" href="{{css_file}}" media-type="text/css"/>
+    {% endfor %}
+    {% for font_file in font_files %}
+    <item id="font_{{font_file}}" href="fonts/{{font_file}}" media-type="application/x-font-opentype"/>
+    {% endfor %}
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="cover" linear="yes"/>
+    {% for chapter in book.chapters %}
+      <itemref idref="chapter_{{chapter.chapter_id}}"/>
+    {% endfor %}
+    <itemref idref="end_of_book"/>
+  </spine>
+  <guide>
+    <reference href="title.html" type="cover" title="Cover"/>
+  </guide>
+</package>

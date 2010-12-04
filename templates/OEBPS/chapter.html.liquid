@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>{{ chapter.number_or_name }}</title>
+    <link rel="stylesheet" href="stylesheet.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="fonts.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="print.css" type="text/css" media="print" />
+  </head>
+
+  <body>
+    <div id="content">
+      {% if chapter.number != null %}
+        <h1>Chapter {{ chapter.number_as_word | capitalize }}</h1>
+      {% endif %}
+      {% if chapter.name != null %}
+        <h2>{{ chapter.name }}</h2>
+      {% endif %}
+      {% if chapter.subhead != null %}
+        <h3>{{ chapter.subhead }}</h3>
+      {% endif %}
+
+      {{ chapter.html }}
+    </div>
+  </body>
+</html>

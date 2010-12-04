@@ -1,0 +1,82 @@
+/* Most of this CSS is by Jason LaPier:
+ *   http://openbookfiction.com
+ * 
+ * other great resources:
+ *   http://epubzengarden.com/
+ *   http://www.fontsquirrel.com/
+ *   http://blog.threepress.org/
+ */
+
+#content {
+	background-color: white;
+	color: black;
+  font-family: 'TeX Gyre Termes';
+	text-align: justify;
+}
+
+#content h1, #content h2, #content h3 {
+	text-align: right;
+	font-family: sans-serif;
+}
+
+#content h1 {
+	border-bottom: 1px solid black;
+  margin: 2em 0em;
+  font-variant: small-caps;
+}
+
+/*
+#content h1 { text-transform:uppercase }
+*/
+
+#content h3 {
+  font-style: italic;
+}
+
+blockquote {
+	margin-left: 5em;
+	margin-right: 5em;
+}
+
+blockquote .attribution {
+	display: block;
+	text-align: right;
+}
+
+p {
+	text-indent: 1em;
+	text-align: justify;
+	margin: 0;
+	clear:both;
+}
+
+p.first, p.noindent, blockquote p, h1 + p, h2 + p, h3 + p {
+	text-indent: 0;
+	margin-top: 1em;
+	clear:both;
+}
+
+h1 + p:first-line, h2 + p:first-line, h3 + p:first-line {
+  font-variant: small-caps;
+}
+
+/*
+h2 + p:first-letter, h1 + p:first-letter {
+	font-size: 2.5em;
+  font-weight: bold;
+}
+*/
+
+em { font-style: italic; }
+em em { font-style: normal; }
+
+strong { font-weight: bold; }
+strong strong { font-weight: normal; }
+
+.smaller p { 
+  font-size: 8pt; 
+  text-indent: 0; 
+  text-align:left;
+  margin-bottom: 1em;
+  font-family: 'TeX Gyre Termes';
+}

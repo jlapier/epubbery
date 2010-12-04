@@ -1,0 +1,7 @@
+--- 
+:book_title: My Book Title
+:author: My Name
+:epubcheck: /opt/epubcheck/epubcheck-1.1.jar
+:file_name: mybook.epub
+:chapter_glob: ~/some/path/*.txt
+:temp_epub_folder: epub

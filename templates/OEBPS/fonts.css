@@ -1,0 +1,117 @@
+/* a few fonts */
+
+
+/* OFL Sorts Mill Goudy */
+
+@font-face {
+  font-family: 'OFL Sorts Mill Goudy';
+  font-style: normal;
+  font-weight: normal;
+  src: url("fonts/OFL Sorts Mill GoudyStM.otf");
+}
+
+@font-face {
+  font-family: 'OFL Sorts Mill Goudy';
+  font-style: italic;
+  font-weight: normal;
+  src: url("fonts/OFL Sorts Mill GoudyStM-Italic.otf");
+}
+
+
+
+/* Bergamo Std */
+
+@font-face {
+  font-family: 'Bergamo Std';
+  font-style: normal;
+  font-weight: normal;
+  src: url("fonts/BergamoStd-Regular.otf");
+}
+
+@font-face {
+  font-family: 'Bergamo Std';
+  font-style: italic;
+  font-weight: normal;
+  src: url("fonts/BergamoStd-Italic.otf");
+}
+
+@font-face {
+  font-family: 'Bergamo Std';
+  font-style: normal;
+  font-weight: bold;
+  src: url("fonts/BergamoStd-Bold.otf");
+}
+
+@font-face {
+  font-family: 'Bergamo Std';
+  font-style: italic;
+  font-weight: bold;
+  src: url("fonts/BergamoStd-BoldItalic.otf");
+}
+
+
+
+
+
+/* TeX Gyre Pagella */
+
+@font-face {
+  font-family: 'TeX Gyre Pagella';
+  font-style: normal;
+  font-weight: normal;
+  src: url("fonts/texgyrepagella-regular.otf");
+}
+
+@font-face {
+  font-family: 'TeX Gyre Pagella';
+  font-style: italic;
+  font-weight: normal;
+  src: url("fonts/texgyrepagella-italic.otf");
+}
+
+@font-face {
+  font-family: 'TeX Gyre Pagella';
+  font-style: normal;
+  font-weight: bold;
+  src: url("fonts/texgyrepagella-bold.otf");
+}
+
+@font-face {
+  font-family: 'TeX Gyre Pagella';
+  font-style: italic;
+  font-weight: bold;
+  src: url("fonts/texgyrepagella-bolditalic.otf");
+}
+
+
+
+/* TeX Gyre Termes */
+
+@font-face {
+  font-family: 'TeX Gyre Termes';
+  font-style: normal;
+  font-weight: normal;
+  src: url("fonts/texgyretermes-regular.otf");
+}
+
+@font-face {
+  font-family: 'TeX Gyre Termes';
+  font-style: italic;
+  font-weight: normal;
+  src: url("fonts/texgyretermes-italic.otf");
+}
+
+@font-face {
+  font-family: 'TeX Gyre Termes';
+  font-style: normal;
+  font-weight: bold;
+  src: url("fonts/texgyretermes-bold.otf");
+}
+
+@font-face {
+  font-family: 'TeX Gyre Termes';
+  font-style: italic;
+  font-weight: bold;
+  src: url("fonts/texgyretermes-bolditalic.otf");
+}
+

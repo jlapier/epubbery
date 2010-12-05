@@ -2,7 +2,7 @@
 # making directories and moving files and whatnot
 module EpubSetup
   def make_skeleton(base_dir, epub_folder)
-    @epub_folder = @epub_folder
+    @epub_folder = epub_folder
     @source_templates_dir = File.join(base_dir, 'templates')
     @target_meta_dir = File.join(@epub_folder, 'META-INF')
     @target_oebps_dir = File.join(@epub_folder, 'OEBPS')

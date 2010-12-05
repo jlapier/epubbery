@@ -1,18 +1,18 @@
 # Book: contains info like title and creator
 # also contains an array of chapters (Chapter class)
 class Book
-  attr_accessor :title, :creator, :chapters, :pub_date, :pub_year
+  attr_accessor :title, :creator, :chapters, :pub_date, :pub_year, :isbn
   liquid_methods :title, :creator, :chapters, :pub_date, :pub_year, :book_id, :cc_url
 
-  def initialize(title, creator, pub_date = Date.today)
+  def initialize(title, creator, pub_date = Date.today, isbn = nil)
     self.title = title
     self.creator = creator
     self.pub_date = pub_date
+    self.isbn = isbn
   end
 
   def book_id
-    # TODO - get an ISBN
-    @book_id ||= "urn:uuid:#{UUID.new.generate}"
+    @book_id ||= (isbn || "urn:uuid:#{UUID.new.generate}")
   end
 
   def pub_year

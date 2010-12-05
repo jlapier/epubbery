@@ -30,7 +30,7 @@ class Chapter
   end
 
   def word_count
-    @word_count ||= (name + content).gsub(/(_|\*|,|:)/, '').scan(/(\w|-|')+/).size
+    @word_count ||= (name || "" + content).gsub(/(_|\*|,|:)/, '').scan(/(\w|-|')+/).size
   end
   
   def html
@@ -51,7 +51,7 @@ class Chapter
     if number
       "Chapter #{number_as_word}"
     else
-      name
+      name || ""
     end
   end
   
@@ -62,7 +62,7 @@ class Chapter
     elsif number
       "Chapter #{number_as_word}"
     else
-      nil
+      ""
     end
   end
 end

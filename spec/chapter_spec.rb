@@ -37,6 +37,8 @@ describe Chapter do
     chapter = Chapter.new(@file_lines_without_meta)
     chapter.number.should be(nil)
     chapter.name.should be(nil)
+    chapter.number_or_name.should == ""
+    chapter.name_or_number.should == ""
     chapter.subhead.should be(nil)
     chapter.content.should include('began a long time')
     chapter.content.should include('his tale')
@@ -53,6 +55,11 @@ describe Chapter do
     chapter = Chapter.new(@file_lines_with_meta)
     chapter.number_or_name.should == "Chapter Thirteen"
     chapter.name_or_number.should == "This is a Chapter with Meta"
+  end
+
+  it "should count words" do
+    chapter = Chapter.new(@file_lines_without_meta)
+    chapter.word_count.should == 14
   end
 end
 

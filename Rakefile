@@ -15,8 +15,9 @@ Jeweler::Tasks.new do |gem|
   gem.name = "text_to_epub"
   gem.homepage = "http://github.com/jlapier/text_to_epub"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Generate epub skeleton, convert plain text files into xhtml and create epub}
+  gem.description = %Q{Generates a template directory that you can use to build a custom epub. 
+    After customizing templates, use bin/gen_epub.rb to create and validate an epub archive.}
   gem.email = "jason.lapier@gmail.com"
   gem.authors = ["Jason LaPier"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,

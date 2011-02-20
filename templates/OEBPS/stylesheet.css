@@ -10,7 +10,7 @@
 #content {
 	background-color: white;
 	color: black;
-  font-family: 'TeX Gyre Termes';
+  font-family: 'TeX Gyre Termes', serif;
 	text-align: justify;
 }
 
@@ -78,5 +78,5 @@ strong strong { font-weight: normal; }
   text-indent: 0; 
   text-align:left;
   margin-bottom: 1em;
-  font-family: 'TeX Gyre Termes';
+  font-family: 'TeX Gyre Termes', serif;
 }

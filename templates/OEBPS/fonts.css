@@ -1,4 +1,14 @@
-/* a few fonts */
+/* A Few Fonts
+ * -----------
+ *
+ * There are many ways to embed fonts for different browsers.
+ * For the sake of simplicity, I'm including the most correct way. As such,
+ * these, fonts might not work for all browsers, but they should fall back
+ * properly.
+ *
+ * See: http://www.metaltoad.com/blog/how-use-font-face-avoid-faux-italic-and-bold-browser-styles
+ */
+
 
 
 /* OFL Sorts Mill Goudy */

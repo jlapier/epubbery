@@ -18,6 +18,6 @@ puts "Copying necessary files..."
 FileUtils.cp_r File.join(@base_dir, 'templates'), @destination
 FileUtils.cp_r File.join(@base_dir, 'lib'), @destination
 FileUtils.cp_r File.join(@base_dir, 'bin'), @destination
-FileUtils.cp 'config_sample.yml', File.join(@destination, 'config.yml')
+FileUtils.cp File.join(@base_dir, 'config_sample.yml'), File.join(@destination, 'config.yml')
 
-puts "Done! Go to #{@destination} and edit config.yml and then run ./bin/gen_epub.rb from that directory."
+puts "Done! Go to #{@destination} and edit config.yml and then run gen_epub from that directory."

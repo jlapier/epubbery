@@ -8,9 +8,21 @@ new_book /path/to/new/book
 
 Go to the new directory and modify the file config.yml
 
-Run ./bin/gen_epub.rb from within the new directory.
+Run gen_epub from within the new directory.
 
 Text files will be html-ized using textile (via the RedCloth gem). Check the templates directory for files you may want to customize (such as stylesheet.css or the .liquid html files).
+
+== Converting to PDF
+
+After you've created an epub file, you can easily convert it to PDF. Here are a couple of hints:
+
+using Calibre (http://calibre-ebook.com/):
+  ebook-convert epub_folder/file_name.epub .pdf --custom-size=5x8 --base-font-size=12 --margin-top=54 --margin-left=54 --margin-bottom=54 --margin-right=54
+
+using wkhtmltopdf (http://code.google.com/p/wkhtmltopdf/):
+  wkhtmltopdf --page-width 5in --page-height 8in -L 0.5in -R 0.5in -B 0.5in -T 0.25in --footer-center '[page]' --footer-spacing 2 --print-media-type --footer-font-name TexGyreTermes --footer-font-size 9 epub_folder/OEBPS/*.html mybook.pdf
+
+
 
 == Contributing to text_to_epub
  

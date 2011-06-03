@@ -4,12 +4,12 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{text_to_epub}
+  s.name = %q{epubbery}
   s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jason LaPier"]
-  s.date = %q{2011-02-20}
+  s.date = %q{2011-06-03}
   s.description = %q{Generates a template directory that you can use to build a custom epub. 
     After customizing templates, use bin/gen_epub.rb to create and validate an epub archive.}
   s.email = %q{jason.lapier@gmail.com}
@@ -30,10 +30,11 @@ Gem::Specification.new do |s|
     "bin/gen_epub",
     "bin/new_book",
     "config_sample.yml",
+    "epubbery.gemspec",
     "lib/book.rb",
     "lib/chapter.rb",
     "lib/epub_setup.rb",
-    "lib/text_to_epub.rb",
+    "lib/epubbery.rb",
     "spec/book_spec.rb",
     "spec/chapter_spec.rb",
     "spec/epub_setup_spec.rb",
@@ -63,10 +64,9 @@ Gem::Specification.new do |s|
     "templates/OEBPS/stylesheet.css",
     "templates/OEBPS/title.html.liquid",
     "templates/OEBPS/toc.ncx.liquid",
-    "templates/mimetype",
-    "text_to_epub.gemspec"
+    "templates/mimetype"
   ]
-  s.homepage = %q{http://github.com/jlapier/text_to_epub}
+  s.homepage = %q{http://github.com/jlapier/epubbery}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.5.0}

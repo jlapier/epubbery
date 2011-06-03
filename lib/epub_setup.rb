@@ -44,7 +44,7 @@ module EpubSetup
     end
 
     # returns chapters as an array sorted by name
-    chapters.sort_by { |c| [c.number, c.name, c.file_name] }
+    chapters.sort_by { |c| [c.number || 0, c.name || '', c.file_name] }
   end
 
   def write_templates(book)

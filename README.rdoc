@@ -1,4 +1,4 @@
-= text_to_epub
+= epubbery
 
 Generates a template directory that you can use to build a custom epub file. 
 
@@ -24,7 +24,7 @@ using wkhtmltopdf (http://code.google.com/p/wkhtmltopdf/):
 
 
 
-== Contributing to text_to_epub
+== Contributing to epubbery
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it

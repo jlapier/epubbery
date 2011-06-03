@@ -4,7 +4,7 @@
 
 $: << File.join(@gem_dir, 'lib')
 
-require File.join(@gem_dir, 'lib', 'text_to_epub')
+require File.join(@gem_dir, 'lib', 'epubbery')
 
 include EpubSetup
 

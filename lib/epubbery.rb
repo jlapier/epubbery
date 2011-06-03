@@ -8,7 +8,7 @@ require 'uuid'
 require 'fileutils'
 require 'date'
 
-# text_to_epub libs
+# epubbery libs
 require 'book'
 require 'chapter'
 require 'epub_setup'

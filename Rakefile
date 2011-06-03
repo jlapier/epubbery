@@ -12,8 +12,8 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "text_to_epub"
-  gem.homepage = "http://github.com/jlapier/text_to_epub"
+  gem.name = "epubbery"
+  gem.homepage = "http://github.com/jlapier/epubbery"
   gem.license = "MIT"
   gem.summary = %Q{Generate epub skeleton, convert plain text files into xhtml and create epub}
   gem.description = %Q{Generates a template directory that you can use to build a custom epub. 
@@ -49,7 +49,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "text_to_epub #{version}"
+  rdoc.title = "epubbery #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

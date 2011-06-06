@@ -28,7 +28,7 @@ describe Chapter do
     chapter = Chapter.new(@file_lines_with_meta)
     chapter.number.should == 13
     chapter.name.should == "This is a Chapter with Meta"
-    chapter.subhead.should == "Created on November 20th"
+    chapter.meta['subhead'].should == "Created on November 20th"
     chapter.content.should include('began a long time')
     chapter.content.should include('his tale')
   end
@@ -36,10 +36,10 @@ describe Chapter do
   it "should init without meta" do
     chapter = Chapter.new(@file_lines_without_meta)
     chapter.number.should be(nil)
-    chapter.name.should be(nil)
+    chapter.name.should == ''
     chapter.number_or_name.should == ""
     chapter.name_or_number.should == ""
-    chapter.subhead.should be(nil)
+    chapter.meta['subhead'].should be(nil)
     chapter.content.should include('began a long time')
     chapter.content.should include('his tale')
   end

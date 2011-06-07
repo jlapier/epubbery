@@ -1,4 +1,5 @@
 # gems
+require 'rubygems'
 require 'liquid'
 require 'RedCloth'
 require 'linguistics'

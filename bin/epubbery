@@ -1,0 +1,57 @@
+#!/usr/bin/ruby
+
+@gem_dir = File.expand_path(File.dirname(__FILE__) + '/..')
+
+$: << File.join(@gem_dir, 'lib')
+
+require 'fileutils'
+require File.join(@gem_dir, 'lib', 'epubbery')
+
+include EpubSetup
+
+if ARGV[0]
+  @destination = ARGV[0]
+  @base_dir = File.expand_path(File.dirname(__FILE__) + '/..')
+  
+  puts "Creating templates..."
+  FileUtils.mkdir_p @destination
+  puts "Copying necessary files..."
+  FileUtils.cp_r File.join(@base_dir, 'templates'), @destination
+  FileUtils.cp_r File.join(@base_dir, 'lib'), @destination
+  FileUtils.cp_r File.join(@base_dir, 'bin'), @destination
+  FileUtils.cp File.join(@base_dir, 'config_sample.yml'), File.join(@destination, 'config.yml')
+  
+  puts "Done! Go to #{@destination} and edit config.yml and then run epubbery from that directory."
+elsif File.exist?('config.yml')
+  @config = YAML::load(File.read('config.yml'))
+  @epub_folder = File.join(Dir.getwd, @config[:temp_epub_folder])
+  
+  make_skeleton Dir.getwd, @epub_folder
+  
+  @book = Book.new @config[:book_title], @config[:author]
+  @book.chapters = EpubSetup::read_chapters(@config[:chapter_glob])
+  
+  write_templates(@book)
+  
+  # TODO: use rubyzip or zipruby or something - they all seem to be a PITA compared to unix zip
+  
+  FileUtils.cd @epub_folder
+  FileUtils.rm @config[:file_name] if File.exists?(@config[:file_name])
+  
+  puts "\nGenerating #{@epub_folder}/#{@config[:file_name]}"
+  
+  system "zip -0Xq #{@config[:file_name]} mimetype"
+  system "zip -Xr9Dq #{@config[:file_name]} *"
+  
+  puts "\nRunning epubcheck..."
+  system "java -jar #{@config[:epubcheck]} #{@config[:file_name]}"
+else
+  puts "USAGE:\n"
+  puts "To create a new epubbery project, run:"
+  puts "    epubbery /path/to/new/epub/project\n"
+  puts "To generate an epub from inside an epubbery project, run:"
+  puts "    epubbery"
+  puts "(a config.yml file is required in the same directory)"
+  exit
+end
+

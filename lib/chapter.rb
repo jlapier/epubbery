@@ -48,6 +48,10 @@ class Chapter
     meta['name'] || ""
   end
 
+  def template
+    meta['template'] || nil
+  end
+
   # if there is a number, give us that written out as words; otherwise give the chapter name
   def number_or_name
     number ? "Chapter #{number_as_word}" : name

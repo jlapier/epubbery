@@ -5,3 +5,4 @@
 :file_name: mybook.epub
 :chapter_glob: ~/some/path/*.txt
 :temp_epub_folder: epub
+:default_template: chapter

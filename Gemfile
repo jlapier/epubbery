@@ -3,6 +3,7 @@ source "http://rubygems.org"
 # Example:
 #   gem "activesupport", ">= 2.3.5"
 
+gem 'rake'
 gem 'RedCloth'
 gem 'liquid'
 gem 'uuid'

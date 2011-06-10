@@ -1,7 +1,7 @@
 # EpubSetup
 # making directories and moving files and whatnot
 module EpubSetup
-  def make_skeleton(base_dir, epub_folder)
+  def make_skeleton(base_dir, epub_folder, default_template = 'chapter')
     @epub_folder = epub_folder
     @source_templates_dir = File.join(base_dir, 'templates')
     @target_meta_dir = File.join(@epub_folder, 'META-INF')
@@ -22,7 +22,7 @@ module EpubSetup
     FileUtils.cp_r File.join(@source_templates_dir, 'OEBPS', 'fonts'), @target_oebps_dir
 
     # liquid templates for rest of files
-    @chapter_liq_template = Liquid::Template.parse(File.read(File.join(@source_templates_dir, 'OEBPS', 'chapter.html.liquid'    )))
+    @default_liq_template = Liquid::Template.parse(File.read(File.join(@source_templates_dir, 'OEBPS', "#{default_template.gsub(' ', '_')}.html.liquid"    )))
     @content_liq_template = Liquid::Template.parse(File.read(File.join(@source_templates_dir, 'OEBPS', 'content.opf.liquid'     )))
     @title_liq_template   = Liquid::Template.parse(File.read(File.join(@source_templates_dir, 'OEBPS', 'title.html.liquid'      )))
     @toc_liq_template     = Liquid::Template.parse(File.read(File.join(@source_templates_dir, 'OEBPS', 'toc.ncx.liquid'         )))
@@ -49,7 +49,11 @@ module EpubSetup
 
   def write_templates(book)
     book.chapters.each do |chapter|
-      html_output = @chapter_liq_template.render 'chapter' => chapter
+      template = @default_liq_template
+      if chapter.template
+        template = Liquid::Template.parse(File.read(File.join(@source_templates_dir, 'OEBPS', "#{chapter.template.gsub(' ', '_')}.html.liquid"    )))
+      end
+      html_output = template.render 'chapter' => chapter
       puts "Writing: #{@epub_folder}/OEBPS/#{chapter.file_name}"
       File.open(File.join(@target_oebps_dir, chapter.file_name), "w") { |f| f.puts html_output }
     end

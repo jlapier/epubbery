@@ -26,7 +26,7 @@ elsif File.exist?('config.yml')
   @config = YAML::load(File.read('config.yml'))
   @epub_folder = File.join(Dir.getwd, @config[:temp_epub_folder])
   
-  make_skeleton Dir.getwd, @epub_folder
+  make_skeleton Dir.getwd, @epub_folder, @config[:default_template]
   
   @book = Book.new @config[:book_title], @config[:author]
   @book.chapters = EpubSetup::read_chapters(@config[:chapter_glob])

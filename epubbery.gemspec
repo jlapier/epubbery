@@ -9,11 +9,12 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jason LaPier"]
-  s.date = %q{2011-06-03}
+  s.date = %q{2011-06-10}
+  s.default_executable = %q{epubbery}
   s.description = %q{Generates a template directory that you can use to build a custom epub. 
     After customizing templates, use bin/gen_epub.rb to create and validate an epub archive.}
   s.email = %q{jason.lapier@gmail.com}
-  s.executables = ["new_book", "gen_epub"]
+  s.executables = ["epubbery"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
@@ -27,8 +28,7 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
-    "bin/gen_epub",
-    "bin/new_book",
+    "bin/epubbery",
     "config_sample.yml",
     "epubbery.gemspec",
     "lib/book.rb",

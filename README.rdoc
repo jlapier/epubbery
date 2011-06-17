@@ -3,14 +3,45 @@
 Generates a template directory that you can use to build a custom epub file. 
 
 Usage:
-new_book /path/to/new/book
+epubbery /path/to/new/book
 (if the directory does not exist, it will be created)
 
 Go to the new directory and modify the file config.yml
 
-Run gen_epub from within the new directory.
+Run epubbery from within the new directory.
 
 Text files will be html-ized using textile (via the RedCloth gem). Check the templates directory for files you may want to customize (such as stylesheet.css or the .liquid html files).
+
+== meta tags in text files
+Any line at the top of a text file that matches a single word followed by a colon, followed by any text, will become a meta tag-like variable for that "chapter". For example, if you have:
+  Date: 1999
+  Subhead: Party Time
+
+Then your chapter will have a "meta" hash with those attributes:
+  chapter.meta['date'] == '1999'
+  chapter.meta['subhead'] == 'Party Time'
+
+Additionally, there are a couple of special meta tags that will be used for functional purposes:
+  Name: _string_ - will always be availble as chapter.name
+  Position: _number_ - will be set to chapter.number and used in sorting
+  Number: _number_ - will be set to chapter.number and used in sorting
+  Chapter: _number_ - will be set to chapter.number and used in sorting
+  Template: see below
+
+== Templates
+You'll find a few liquid templates in the OEBPS directory of your project. Feel free to edit these as desired using liquid syntax:
+http://www.liquidmarkup.org/
+By default, all text files will use the chapter.html.liquid template. You can override this default in config.yml, as well as on a file-by-file basis (by using the special meta tag "Template: whatever").
+
+Any meta tags as described previously will be available in the liquid templates.
+
+Helper functions for chapters:
+  name
+  number_or_name
+  number_as_word
+  name_or_number
+  word_count
+  html
 
 == Converting to PDF
 

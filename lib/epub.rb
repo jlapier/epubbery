@@ -1,6 +1,27 @@
 # EpubSetup
 # making directories and moving files and whatnot
-module EpubSetup
+class Epub
+  class << self
+    # kind of an orphaned method that just reads in chapters from text files and returns chapter objects
+    def read_chapters(file_glob)
+      file_glob = File.expand_path(file_glob)
+      puts "Reading files: #{file_glob} (#{Dir[file_glob].size} files found)"
+      chapters = []
+
+      Dir[file_glob].each do |txtfile|
+        chapter = nil
+        File.open(txtfile) do |f|
+          chapter = Chapter.new(f.readlines)
+          chapter.file_name = "#{File.basename(txtfile, '.txt')}.html"
+        end
+        chapters << chapter if chapter
+      end
+
+      # returns chapters as an array sorted by name
+      chapters.sort_by { |c| [c.number || 0, c.name || '', c.file_name] }
+    end
+  end
+
   def make_skeleton(base_dir, epub_folder, default_template = 'chapter')
     @epub_folder = epub_folder
     @source_templates_dir = File.join(base_dir, 'templates')
@@ -27,24 +48,6 @@ module EpubSetup
     @title_liq_template   = Liquid::Template.parse(File.read(File.join(@source_templates_dir, 'OEBPS', 'title.html.liquid'      )))
     @toc_liq_template     = Liquid::Template.parse(File.read(File.join(@source_templates_dir, 'OEBPS', 'toc.ncx.liquid'         )))
     @eob_liq_template     = Liquid::Template.parse(File.read(File.join(@source_templates_dir, 'OEBPS', 'end_of_book.html.liquid')))
-  end
-
-  def read_chapters(file_glob)
-    file_glob = File.expand_path(file_glob)
-    puts "Reading files: #{file_glob} (#{Dir[file_glob].size} files found)"
-    chapters = []
-
-    Dir[file_glob].each do |txtfile|
-      chapter = nil
-      File.open(txtfile) do |f|
-        chapter = Chapter.new(f.readlines)
-        chapter.file_name = "#{File.basename(txtfile, '.txt')}.html"
-      end
-      chapters << chapter if chapter
-    end
-
-    # returns chapters as an array sorted by name
-    chapters.sort_by { |c| [c.number || 0, c.name || '', c.file_name] }
   end
 
   def write_templates(book)

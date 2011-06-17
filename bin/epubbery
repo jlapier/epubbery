@@ -7,7 +7,7 @@ $: << File.join(@gem_dir, 'lib')
 require 'fileutils'
 require File.join(@gem_dir, 'lib', 'epubbery')
 
-include EpubSetup
+@epub = Epub.new
 
 if ARGV[0]
   @destination = ARGV[0]
@@ -26,12 +26,12 @@ elsif File.exist?('config.yml')
   @config = YAML::load(File.read('config.yml'))
   @epub_folder = File.join(Dir.getwd, @config[:temp_epub_folder])
   
-  make_skeleton Dir.getwd, @epub_folder, @config[:default_template]
+  @epub.make_skeleton Dir.getwd, @epub_folder, @config[:default_template]
   
   @book = Book.new @config[:book_title], @config[:author]
-  @book.chapters = EpubSetup::read_chapters(@config[:chapter_glob])
+  @book.chapters = Epub.read_chapters(@config[:chapter_glob])
   
-  write_templates(@book)
+  @epub.write_templates(@book)
   
   # TODO: use rubyzip or zipruby or something - they all seem to be a PITA compared to unix zip
   

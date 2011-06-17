@@ -12,5 +12,5 @@ require 'date'
 # epubbery libs
 require 'book'
 require 'chapter'
-require 'epub_setup'
+require 'epub'
 

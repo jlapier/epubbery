@@ -12,13 +12,13 @@ class Epub
         chapter = nil
         File.open(txtfile) do |f|
           chapter = Chapter.new(f.readlines)
-          chapter.file_name = "#{File.basename(txtfile, '.txt')}.html"
+          chapter.file_name = "#{File.basename(txtfile, '.txt').gsub(/\W/,'_')}.html"
         end
         chapters << chapter if chapter
       end
 
-      # returns chapters as an array sorted by name
-      chapters.sort_by { |c| [c.number || 0, c.name || '', c.file_name] }
+      # returns chapters as an array sorted by number or file_name
+      chapters.sort_by { |c| [c.number || 0, c.file_name] }
     end
   end
 

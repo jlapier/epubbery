@@ -5,14 +5,14 @@
 class Chapter
   attr_accessor :number, :meta, :file_name, :content
   liquid_methods :number, :meta, :file_name, :word_count, :html, :chapter_id,
-    :number_as_word, :number_or_name, :name_or_number
+    :name, :number_as_word, :number_or_name, :name_or_number
 
   def initialize(lines)
     self.meta = {}
     meta = true
     while meta and line = lines.shift do
       line.strip!
-      matches = line.match /^(.+):\s+(.+)/
+      matches = line.match /^([^:]+):\s+(.+)/
       if matches
         if matches[1] =~ /(Chapter|Number|Position)/i and matches[2] =~ /\d+/ and number.nil?
           self.number = matches[2].strip.to_i

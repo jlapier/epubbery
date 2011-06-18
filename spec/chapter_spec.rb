@@ -6,7 +6,7 @@ describe Chapter do
     lines_with_meta = <<-EOF
       Chapter: 13
       Name: This is a Chapter with Meta
-      Subhead: Created on November 20th
+      Subhead: Created: on November 20th
 
       "It all began a long time ago," he said.
 
@@ -28,7 +28,7 @@ describe Chapter do
     chapter = Chapter.new(@file_lines_with_meta)
     chapter.number.should == 13
     chapter.name.should == "This is a Chapter with Meta"
-    chapter.meta['subhead'].should == "Created on November 20th"
+    chapter.meta['subhead'].should == "Created: on November 20th"
     chapter.content.should include('began a long time')
     chapter.content.should include('his tale')
   end

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jason LaPier"]
-  s.date = %q{2011-06-10}
+  s.date = %q{2011-06-18}
   s.default_executable = %q{epubbery}
   s.description = %q{Generates a template directory that you can use to build a custom epub. 
     After customizing templates, use bin/gen_epub.rb to create and validate an epub archive.}
@@ -33,11 +33,11 @@ Gem::Specification.new do |s|
     "epubbery.gemspec",
     "lib/book.rb",
     "lib/chapter.rb",
-    "lib/epub_setup.rb",
+    "lib/epub.rb",
     "lib/epubbery.rb",
     "spec/book_spec.rb",
     "spec/chapter_spec.rb",
-    "spec/epub_setup_spec.rb",
+    "spec/epub_spec.rb",
     "spec/spec_helper.rb",
     "templates/META-INF/container.xml",
     "templates/OEBPS/chapter.html.liquid",
@@ -74,7 +74,7 @@ Gem::Specification.new do |s|
   s.test_files = [
     "spec/book_spec.rb",
     "spec/chapter_spec.rb",
-    "spec/epub_setup_spec.rb",
+    "spec/epub_spec.rb",
     "spec/spec_helper.rb"
   ]
 
@@ -82,6 +82,7 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<rake>, [">= 0"])
       s.add_runtime_dependency(%q<RedCloth>, [">= 0"])
       s.add_runtime_dependency(%q<liquid>, [">= 0"])
       s.add_runtime_dependency(%q<uuid>, [">= 0"])
@@ -95,6 +96,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<uuid>, [">= 0"])
       s.add_runtime_dependency(%q<linguistics>, [">= 0"])
     else
+      s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<RedCloth>, [">= 0"])
       s.add_dependency(%q<liquid>, [">= 0"])
       s.add_dependency(%q<uuid>, [">= 0"])
@@ -109,6 +111,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<linguistics>, [">= 0"])
     end
   else
+    s.add_dependency(%q<rake>, [">= 0"])
     s.add_dependency(%q<RedCloth>, [">= 0"])
     s.add_dependency(%q<liquid>, [">= 0"])
     s.add_dependency(%q<uuid>, [">= 0"])

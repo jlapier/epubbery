@@ -17,8 +17,6 @@ if ARGV[0]
   FileUtils.mkdir_p @destination
   puts "Copying necessary files..."
   FileUtils.cp_r File.join(@base_dir, 'templates'), @destination
-  FileUtils.cp_r File.join(@base_dir, 'lib'), @destination
-  FileUtils.cp_r File.join(@base_dir, 'bin'), @destination
   FileUtils.cp File.join(@base_dir, 'config_sample.yml'), File.join(@destination, 'config.yml')
   
   puts "Done! Go to #{@destination} and edit config.yml and then run epubbery from that directory."

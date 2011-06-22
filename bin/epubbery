@@ -24,23 +24,20 @@ elsif File.exist?('config.yml')
   @config = YAML::load(File.read('config.yml'))
   @epub_folder = File.join(Dir.getwd, @config[:temp_epub_folder])
   
-  @epub.make_skeleton Dir.getwd, @epub_folder, @config[:default_template]
-  
   @book = Book.new @config[:book_title], @config[:author]
   @book.chapters = Epub.read_chapters(@config[:chapter_glob])
   
-  @epub.write_templates(@book)
+#  @epub.make_skeleton Dir.getwd, @epub_folder, @config[:default_template]
+#@epub.write_templates(@book)
   
-  # TODO: use rubyzip or zipruby or something - they all seem to be a PITA compared to unix zip
-  
-  FileUtils.cd @epub_folder
   FileUtils.rm @config[:file_name] if File.exists?(@config[:file_name])
   
-  puts "\nGenerating #{@epub_folder}/#{@config[:file_name]}"
-  
-  system "zip -0Xq #{@config[:file_name]} mimetype"
-  system "zip -Xr9Dq #{@config[:file_name]} *"
-  
+  puts "\nGenerating #{@config[:file_name]}"
+  system "zip -0Xqj #{@config[:file_name]} templates/mimetype"
+ 
+  @epub.read_templates(Dir.getwd, @config[:default_template])
+  @epub.create_zip(@book, @config[:file_name])
+
   puts "\nRunning epubcheck..."
   system "java -jar #{@config[:epubcheck]} #{@config[:file_name]}"
 else

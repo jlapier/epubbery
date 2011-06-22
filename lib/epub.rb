@@ -42,6 +42,12 @@ class Epub
     FileUtils.cp_r File.join(@source_templates_dir, 'OEBPS', 'images'), @target_oebps_dir
     FileUtils.cp_r File.join(@source_templates_dir, 'OEBPS', 'fonts'), @target_oebps_dir
 
+    read_templates(base_dir, default_template)
+  end
+
+  def read_templates(base_dir, default_template = 'chapter')
+    @source_templates_dir = File.join(base_dir, 'templates')
+
     # liquid templates for rest of files
     @default_liq_template = Liquid::Template.parse(File.read(File.join(@source_templates_dir, 'OEBPS', "#{default_template.gsub(' ', '_')}.html.liquid"    )))
     @content_liq_template = Liquid::Template.parse(File.read(File.join(@source_templates_dir, 'OEBPS', 'content.opf.liquid'     )))
@@ -50,28 +56,63 @@ class Epub
     @eob_liq_template     = Liquid::Template.parse(File.read(File.join(@source_templates_dir, 'OEBPS', 'end_of_book.html.liquid')))
   end
 
-  def write_templates(book)
+  def render_templates(book)
+    rendered = {}
+
     book.chapters.each do |chapter|
       template = @default_liq_template
       if chapter.template
         template = Liquid::Template.parse(File.read(File.join(@source_templates_dir, 'OEBPS', "#{chapter.template.gsub(' ', '_')}.html.liquid"    )))
       end
       html_output = template.render 'chapter' => chapter
-      puts "Writing: #{@epub_folder}/OEBPS/#{chapter.file_name}"
-      File.open(File.join(@target_oebps_dir, chapter.file_name), "w") { |f| f.puts html_output }
+      puts "Rendering: OEBPS/#{chapter.file_name}"
+      rendered[File.join('OEBPS', chapter.file_name)] = html_output
     end
 
-    puts "Writing: #{@epub_folder}/OEBPS/content.opf"
-    File.open(File.join(@target_oebps_dir, 'content.opf'), "w") { |f| f.puts @content_liq_template.render('book' => book,
+    puts "Rendering: OEBPS/content.opf"
+    rendered[File.join('OEBPS', 'content.opf')] = @content_liq_template.render('book' => book,
         'css_files'   => Dir[File.join(@source_templates_dir, 'OEBPS', '*.css')].map    { |f| File.basename(f) },
         'image_files' => Dir[File.join(@source_templates_dir, 'OEBPS', 'images', '*')].map { |f| File.basename(f) },
-        'font_files'  => Dir[File.join(@source_templates_dir, 'OEBPS', 'fonts', '*')].map  { |f| File.basename(f) } ) }
-    puts "Writing: #{@epub_folder}/OEBPS/title.html"
-    File.open(File.join(@target_oebps_dir, 'title.html'), "w") { |f| f.puts @title_liq_template.render('book' => book) }
-    puts "Writing: #{@epub_folder}/OEBPS/end_of_book.html"
-    File.open(File.join(@target_oebps_dir, 'end_of_book.html'), "w") { |f| f.puts @eob_liq_template.render('book' => book) }
-    puts "Writing: #{@epub_folder}/OEBPS/toc.ncx"
-    File.open(File.join(@target_oebps_dir, 'toc.ncx'), "w") { |f| f.puts @toc_liq_template.render('book' => book) }
+        'font_files'  => Dir[File.join(@source_templates_dir, 'OEBPS', 'fonts', '*')].map  { |f| File.basename(f) } )
+
+    puts "Rendering: OEBPS/title.html"
+    rendered[File.join('OEBPS', 'title.html')] = @title_liq_template.render('book' => book)
+
+    puts "Rendering: OEBPS/end_of_book.html"
+    rendered[File.join('OEBPS', 'end_of_book.html')] = @eob_liq_template.render('book' => book) 
+
+    puts "Rendering: OEBPS/toc.ncx"
+    rendered[File.join('OEBPS', 'toc.ncx')] = @toc_liq_template.render('book' => book) 
+
+    rendered
+  end
+
+  def write_templates(book)
+    rendered_templates = render_templates(book)
+    rendered_templates.each do |filepath, text|
+      puts "Writing: #{@epub_folder}/#{filepath}"
+      File.open(File.join(@epub_folder, filepath), "w") { |f| f.puts text }
+    end
+  end
+
+  def create_zip(book, zipfile)
+    rendered_templates = render_templates(book)
+    Zip::Archive.open(zipfile) do |ar|
+      ar.add_file 'META-INF/container.xml', File.join(@source_templates_dir, 'META-INF', 'container.xml')
+      Dir[File.join(@source_templates_dir, 'OEBPS', '*.css')].each do |path|
+        ar.add_file("OEBPS/#{File.basename(path)}", path)
+      end
+      Dir[File.join(@source_templates_dir, 'OEBPS', 'images', '*')].each do |path|
+        ar.add_file("OEBPS/images/#{File.basename(path)}", path)
+      end
+      Dir[File.join(@source_templates_dir, 'OEBPS', 'fonts', '*')].each do |path|
+        ar.add_file("OEBPS/fonts/#{File.basename(path)}", path)
+      end
+      rendered_templates.each do |filepath, text|
+        puts "Adding: #{filepath}"
+        ar.add_buffer filepath, text
+      end  
+    end
   end
 end
 

@@ -8,6 +8,7 @@ require 'uuid'
 # ruby libs
 require 'fileutils'
 require 'date'
+require 'zipruby'
 
 # epubbery libs
 require 'book'

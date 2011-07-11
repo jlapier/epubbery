@@ -8,6 +8,7 @@ gem 'RedCloth'
 gem 'liquid'
 gem 'uuid'
 gem 'linguistics'
+gem 'zipruby'
 
 
 # Add dependencies to develop your gem here.

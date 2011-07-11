@@ -23,6 +23,7 @@ class Epub
   end
 
   def make_skeleton(base_dir, epub_folder, default_template = 'chapter')
+    default_template ||= 'chapter'
     @epub_folder = epub_folder
     @source_templates_dir = File.join(base_dir, 'templates')
     @target_meta_dir = File.join(@epub_folder, 'META-INF')
@@ -33,7 +34,6 @@ class Epub
     FileUtils.mkdir_p @target_meta_dir
     FileUtils.mkdir_p @target_oebps_dir
 
-    FileUtils.cp File.join(@source_templates_dir, 'mimetype'), @epub_folder
     FileUtils.cp File.join(@source_templates_dir, 'META-INF', 'container.xml'), @target_meta_dir
 
     # TODO - somehow detect these "asset" folders and files - 
@@ -46,6 +46,7 @@ class Epub
   end
 
   def read_templates(base_dir, default_template = 'chapter')
+    default_template ||= 'chapter'
     @source_templates_dir = File.join(base_dir, 'templates')
 
     # liquid templates for rest of files

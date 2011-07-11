@@ -23,6 +23,7 @@ GEM
     rspec-mocks (2.6.0)
     uuid (2.3.2)
       macaddr (~> 1.0)
+    zipruby (0.3.6)
 
 PLATFORMS
   ruby
@@ -37,3 +38,4 @@ DEPENDENCIES
   rcov
   rspec (~> 2.2.0)
   uuid
+  zipruby

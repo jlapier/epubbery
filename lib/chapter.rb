@@ -2,28 +2,33 @@
 # contains name, content (text-only)
 # generates html
 # file_name should reference html file after it is written
+# Chapter.new(lines, options) where lines is a string or an array of strings,
+#   options will override meta variables
 class Chapter
   attr_accessor :number, :meta, :file_name, :content
   liquid_methods :number, :meta, :file_name, :word_count, :html, :chapter_id,
     :name, :number_as_word, :number_or_name, :name_or_number
 
-  def initialize(lines)
+  def initialize(lines, options = {})
+    if lines.is_a?(String)
+      lines = lines.split("\n")
+    end
     self.meta = {}
-    meta = true
-    while meta and line = lines.shift do
+    in_meta = true
+    while in_meta and line = lines.shift do
       line.strip!
       matches = line.match /^([^:]+):\s+(.+)/
       if matches
         if matches[1] =~ /(Chapter|Number|Position)/i and matches[2] =~ /\d+/ and number.nil?
           self.number = matches[2].strip.to_i
         end
-        self.meta[matches[1].downcase] = matches[2]
+        self.meta[matches[1].downcase.to_sym] = matches[2]
       else
         lines = [line] + lines if line
-        meta = false 
+        in_meta = false 
       end
     end
-
+    self.meta.merge!(options)
     self.content = lines.join
   end
 
@@ -45,11 +50,11 @@ class Chapter
   end
 
   def name
-    meta['name'] || ""
+    meta[:name] || ""
   end
 
   def template
-    meta['template'] || nil
+    meta[:template] || nil
   end
 
   # if there is a number, give us that written out as words; otherwise give the chapter name

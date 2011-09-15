@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe Chapter do
   before(:each) do
-    lines_with_meta = <<-EOF
+    @lines_with_meta = <<-EOF
       Chapter: 13
       Name: This is a Chapter with Meta
       Subhead: Created: on November 20th
@@ -12,23 +12,41 @@ describe Chapter do
 
       And he _told_ his tale.
     EOF
-    @file_lines_with_meta = lines_with_meta.split("\n")
+    @file_lines_with_meta = @lines_with_meta.split("\n")
 
 
-    lines_without_meta = <<-EOF
+    @lines_without_meta = <<-EOF
       "It all began a long time ago," he said.
 
       And he _told_ his tale.
     EOF
 
-    @file_lines_without_meta = lines_without_meta.split("\n")
+    @file_lines_without_meta = @lines_without_meta.split("\n")
   end
 
-  it "should init with meta" do
+  it "should init with meta (file)" do
     chapter = Chapter.new(@file_lines_with_meta)
     chapter.number.should == 13
     chapter.name.should == "This is a Chapter with Meta"
-    chapter.meta['subhead'].should == "Created: on November 20th"
+    chapter.meta[:subhead].should == "Created: on November 20th"
+    chapter.content.should include('began a long time')
+    chapter.content.should include('his tale')
+  end
+
+  it "should init with meta (text)" do
+    chapter = Chapter.new(@lines_with_meta)
+    chapter.number.should == 13
+    chapter.name.should == "This is a Chapter with Meta"
+    chapter.meta[:subhead].should == "Created: on November 20th"
+    chapter.content.should include('began a long time')
+    chapter.content.should include('his tale')
+  end
+
+  it "should init with meta (file) and override with option" do
+    chapter = Chapter.new(@file_lines_with_meta, :name => "New Name")
+    chapter.number.should == 13
+    chapter.name.should == "New Name"
+    chapter.meta[:subhead].should == "Created: on November 20th"
     chapter.content.should include('began a long time')
     chapter.content.should include('his tale')
   end
@@ -39,7 +57,7 @@ describe Chapter do
     chapter.name.should == ''
     chapter.number_or_name.should == ""
     chapter.name_or_number.should == ""
-    chapter.meta['subhead'].should be(nil)
+    chapter.meta[:subhead].should be(nil)
     chapter.content.should include('began a long time')
     chapter.content.should include('his tale')
   end

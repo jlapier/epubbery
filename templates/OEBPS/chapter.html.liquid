@@ -14,8 +14,8 @@
       {% if chapter.name != null %}
         <h2>{{ chapter.name }}</h2>
       {% endif %}
-      {% if chapter.meta['subhead'] != null %}
-        <h3>{{ chapter.meta['subhead'] }}</h3>
+      {% if chapter.meta[:subhead] != null %}
+        <h3>{{ chapter.meta[:subhead] }}</h3>
       {% endif %}
 
       {{ chapter.html }}

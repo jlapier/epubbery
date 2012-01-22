@@ -26,16 +26,17 @@ elsif File.exist?('config.yml')
   
   @book = Book.new @config[:book_title], @config[:author]
   @book.chapters = Epub.read_chapters(@config[:chapter_glob])
-  
-#  @epub.make_skeleton Dir.getwd, @epub_folder, @config[:default_template]
-#@epub.write_templates(@book)
+ 
+  # # uncomment to actually write temp rendered html files
+  # @epub.make_skeleton Dir.getwd, @epub_folder, @config[:default_template]
+  # @epub.write_templates(@book)
   
   FileUtils.rm @config[:file_name] if File.exists?(@config[:file_name])
   
   puts "\nGenerating #{@config[:file_name]}"
   FileUtils.cp File.join(@gem_dir, 'lib', 'base.epub'), @config[:file_name]
  
-  @epub.read_templates(Dir.getwd, @config[:default_template])
+  @epub.load_file_templates(Dir.getwd, @config[:default_template])
   @epub.create_zip(@book, @config[:file_name])
 
   puts "\nRunning epubcheck..."

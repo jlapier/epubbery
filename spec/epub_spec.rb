@@ -4,6 +4,7 @@ describe Epub do
   before(:all) do
     @epub = Epub.new
     @tmp_epub_folder = "test_epub_folder_safe_to_remove_will_be_deleted"
+    @tmp_epub_file = "test_zip_safe_to_remove.epub"
     @base_dir = File.expand_path(File.dirname(__FILE__) + "/..")
     @tmp_text_folder = "test_epub_folder_safe_to_remove_will_be_deleted2"
     FileUtils.rm_rf File.join(@base_dir, @tmp_text_folder) if File.exists?(File.join(@base_dir, @tmp_text_folder))
@@ -25,6 +26,7 @@ describe Epub do
     FileUtils.rm_rf File.join(@base_dir, @tmp_epub_folder)
     FileUtils.rm_rf File.join(@base_dir, @tmp_text_folder)
     FileUtils.rm File.join(@base_dir, 'templates', 'OEBPS', 'delete_this_alternate.html.liquid')
+    FileUtils.rm File.join(@base_dir, @tmp_epub_file)
   end
 
   it "should make skeleton" do
@@ -62,5 +64,17 @@ describe Epub do
     File.exists?(File.join(@tmp_epub_folder, 'OEBPS', '1.html')).should == true
     File.exists?(File.join(@tmp_epub_folder, 'OEBPS', '2.html')).should == true
     File.exists?(File.join(@tmp_epub_folder, 'OEBPS', 'end_of_book.html')).should == true
+  end
+
+  it "should create a zip file" do
+    @epub.make_skeleton @base_dir, @tmp_epub_folder
+    book = Book.new "Testy", "Jason", Date.new(2001)
+    book.chapters = Epub.read_chapters("#{File.join(@base_dir, @tmp_text_folder)}/*.txt")
+    @epub.write_templates book
+    blank_epub = File.join(@base_dir, 'lib', 'base.epub')
+    FileUtils.cp blank_epub, @tmp_epub_file
+    @epub.create_zip book, @tmp_epub_file
+    File.exists?(@tmp_epub_file)
+    File.size(blank_epub).should < File.size(@tmp_epub_file)
   end
 end

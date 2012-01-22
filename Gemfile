@@ -9,6 +9,7 @@ gem 'liquid'
 gem 'uuid'
 gem 'linguistics'
 gem 'zipruby'
+gem 'rdoc'
 
 
 # Add dependencies to develop your gem here.

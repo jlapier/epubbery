@@ -43,6 +43,10 @@ Helper functions for chapters:
   word_count
   html
 
+== Using epubbery as a library
+
+epubbery can be used in a ruby application instead of on the command line. You need to create a Book object, filled with Chapter objects, and then an Epub object. 
+
 == Converting to PDF
 
 After you've created an epub file, you can easily convert it to PDF. Here are a couple of hints:
@@ -67,6 +71,6 @@ using wkhtmltopdf (http://code.google.com/p/wkhtmltopdf/):
 
 == Copyright
 
-Copyright (c) 2010 Jason LaPier. See LICENSE.txt for
+Copyright (c) 2010-2012 Jason LaPier. See LICENSE.txt for
 further details.
 

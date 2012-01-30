@@ -77,4 +77,17 @@ describe Epub do
     File.exists?(@tmp_epub_file)
     File.size(blank_epub).should < File.size(@tmp_epub_file)
   end
+
+  it "should create a zip file using css buffers" do
+    @epub.make_skeleton @base_dir, @tmp_epub_folder
+    book = Book.new "Testy Red", "Jason", Date.new(2001)
+    book.chapters = Epub.read_chapters("#{File.join(@base_dir, @tmp_text_folder)}/*.txt")
+    @epub.write_templates book
+    blank_epub = File.join(@base_dir, 'lib', 'base.epub')
+    FileUtils.cp blank_epub, @tmp_epub_file
+    @epub.custom_asset_files ['my.css'], [], []
+    @epub.create_zip book, @tmp_epub_file, :css_buffers => { 'my.css', 'body { color:red }' }
+    File.exists?(@tmp_epub_file)
+    File.size(blank_epub).should < File.size(@tmp_epub_file)
+  end
 end

@@ -1,9 +1,15 @@
 # Book: contains info like title and creator
+#
 # also contains an array of chapters (Chapter class)
+#
+# You can use Epub.read_chapters(file_glob) to read from text files
+# 
+# Otherwise, create Chapter objects manually and add them to the book.chapters array
 class Book
   attr_accessor :title, :creator, :chapters, :pub_date, :pub_year, :isbn
   liquid_methods :title, :creator, :chapters, :pub_date, :pub_year, :book_id, :cc_url
 
+  # if you do not provide an ISBN, we'll gen a unique UUID for your .epub's book ID
   def initialize(title, creator, pub_date = Date.today, isbn = nil)
     self.title = title
     self.creator = creator

@@ -1,9 +1,8 @@
-# Chapter 
-# contains name, content (text-only)
-# generates html
-# file_name should reference html file after it is written
-# Chapter.new(lines, options) where lines is a string or an array of strings,
-#   options will override meta variables
+# Chapter
+#
+# contains name, content (text-only), generates html
+#
+# file_name should reference html file to be written (inside epub archive)
 class Chapter
   include Comparable
 
@@ -11,6 +10,8 @@ class Chapter
   liquid_methods :number, :meta, :file_name, :word_count, :html, :chapter_id,
     :name, :number_as_word, :number_or_name, :name_or_number
 
+  # Chapter.new(lines, options) where lines is a string or an array of strings, 
+  # options will override meta variables
   def initialize(lines, options = {})
     if lines.is_a?(String)
       lines = lines.split("\n")
@@ -31,6 +32,7 @@ class Chapter
       end
     end
     self.meta.merge!(options)
+    self.file_name = self.meta[:file_name]
     self.content = lines.join
   end
 
@@ -79,7 +81,7 @@ class Chapter
     if !name.empty?
       name
     else
-      file_name
+      file_name || 'I_have_no_file_name'
     end
   end
 

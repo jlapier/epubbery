@@ -5,6 +5,8 @@
 # Chapter.new(lines, options) where lines is a string or an array of strings,
 #   options will override meta variables
 class Chapter
+  include Comparable
+
   attr_accessor :number, :meta, :file_name, :content
   liquid_methods :number, :meta, :file_name, :word_count, :html, :chapter_id,
     :name, :number_as_word, :number_or_name, :name_or_number
@@ -72,4 +74,29 @@ class Chapter
       ""
     end
   end
+
+  def name_or_file
+    if !name.empty?
+      name
+    else
+      file_name
+    end
+  end
+
+  # we try to do a more human sort - so it's okay to mix words and letters in titles
+  # we also ignore whitespace, underscores, and dashes - that should help with sorting 
+  # when you only have filenames to work with
+  def <=>(other)
+    if number and other.number
+      return number <=> other.number
+    elsif number
+      return -1
+    elsif other.number
+      return 1
+    else
+      name_or_file.gsub(/\s+|_|-/, '').split(/(\d+)/).map {|s| s =~ /\d+/ ? s.to_i : s } <=> 
+        other.name_or_file.gsub(/\s+|_|-/, '').split(/(\d+)/).map {|s| s =~ /\d+/ ? s.to_i : s }
+    end
+  end
+
 end

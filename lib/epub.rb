@@ -19,7 +19,7 @@ class Epub
       end
 
       # returns chapters as an array sorted by number or file_name
-      chapters.sort_by { |c| [c.number || 0, c.file_name] }
+      chapters.sort
     end
   end
 
